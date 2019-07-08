@@ -15,7 +15,7 @@ def main():
                     os.remove(os.path.join(newdir, i))
             #removing every files
             test = os.listdir(newdir)
-            for i in test[::2]:
+            for i in test[::444]:
                 os.remove(i)
                 print("Removed file: ",i)
             #renaming the leftover files
