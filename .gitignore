@@ -100,5 +100,11 @@ venv.bak/
 # mkdocs documentation
 /site
 
+#vscode
+.vscode
+
+#.pylintrc
+.pylintrc
+
 # mypy
 .mypy_cache/
