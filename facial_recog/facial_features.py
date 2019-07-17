@@ -25,7 +25,6 @@ def do_facial_feature_recog(img,path):
 
     face_landmarks_list = face_recognition.face_landmarks(image)
 
-    print("I found {} face(s) in the photo".format(len(face_landmarks_list)))
 
     #If the machine did not find any landmarks then delete the image
     if len(face_landmarks_list) == 0:
@@ -36,17 +35,13 @@ def do_facial_feature_recog(img,path):
     pil_image = Image.fromarray(image)
     d = ImageDraw.Draw(pil_image)
 
-
     for face_landmarks in face_landmarks_list:
 
-        for facial_feature in face_landmarks.keys():
-            print("The {} in this face has the following points: {}".format(facial_feature, face_landmarks[facial_feature]))
+        facial_feature = random.choice(list(face_landmarks.keys()))
+        print("The {} in this face has the following points: {}".format(facial_feature, face_landmarks[facial_feature]))
 
-        for facial_feature in face_landmarks.keys():
-            #drawing line on each of the facial features
-            d.line(face_landmarks[facial_feature], width=5)
+        d.line(face_landmarks[facial_feature], width=5)
 
-##pick random picture and random facial feature and send coordinates to either other module or to do DCT on. 
     pil_image.show()
     time.sleep(.1)
 
@@ -66,6 +61,7 @@ def main():
     do_facial_feature_recog(picture, img_path)
     time.sleep(5)
     kill_example_pictures()
+
 
 
 
