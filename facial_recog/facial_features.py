@@ -2,6 +2,23 @@ from PIL import Image, ImageDraw
 import os
 import face_recognition
 import time
+import random
+
+def select_image():
+    path = "/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset"
+    pictures_list = os.listdir(path)
+    #remove any non pictures from pictures_list
+    for each in pictures_list:
+        if ".jpg" not in each:
+            pictures_list.remove(each)
+
+    #randomly selecting a element from our picture list to perform facial feature recognition 
+    picture = random.choice(pictures_list)
+    os.chdir(path)
+    img_path = "/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/"+picture
+    print("The file that was chosen was: ", picture)
+    return picture, img_path
+
 
 def do_facial_feature_recog(img,path):
     image = face_recognition.load_image_file(img)
@@ -26,31 +43,29 @@ def do_facial_feature_recog(img,path):
             print("The {} in this face has the following points: {}".format(facial_feature, face_landmarks[facial_feature]))
 
         for facial_feature in face_landmarks.keys():
+            #drawing line on each of the facial features
             d.line(face_landmarks[facial_feature], width=5)
 
-
+##pick random picture and random facial feature and send coordinates to either other module or to do DCT on. 
     pil_image.show()
-    time.sleep(.5)
+    time.sleep(.1)
 
-    #now rename the images into correct order and figure out how to pass into DCT (PUT ALL IMGS IN ARRAY AND RANDOMIZE)
-    #kill all png  ps aux | pkill -f PNG
 
     return True
     
+def kill_example_pictures():
+    myCmd = "ps aux | pkill -f PNG"
+    os.system(myCmd)
 
 
 
 
 def main():
-    path = "facial_recog/dataset/"
-    for filename in os.listdir("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset"):
-        path = "/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/"+filename
-        if os.path.isdir(path) == True:
-            os.chdir(path)
-            for each in os.listdir():
-                img_path = path + "/" + each
-                do_facial_feature_recog(each, img_path)
 
+    picture, img_path = select_image()
+    do_facial_feature_recog(picture, img_path)
+    time.sleep(5)
+    kill_example_pictures()
 
 
 
