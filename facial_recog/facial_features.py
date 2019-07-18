@@ -36,17 +36,26 @@ def do_facial_feature_recog(img,path):
     d = ImageDraw.Draw(pil_image)
 
     for face_landmarks in face_landmarks_list:
-
+        #combining bottom lip, top lip, and chin into mouth
+        #combining left_eye, left_eyebrow, right_eye, right_eyebrow into eyes
+        #combing nose_bridge, nose_tip into nose.
+        #This will give us 3 features to randomly choose from to hide information
+        face_landmarks['mouth'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin']
+        face_landmarks['eyes'] = face_landmarks['left_eye'] + face_landmarks['right_eye'] + face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow']
+        face_landmarks['nose'] = face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
+        #cleaning up the leftover points
+        toRemove = ["bottom_lip","top_lip","chin","left_eye","right_eye","left_eyebrow","right_eyebrow","nose_bridge","nose_tip"]
+        for each in toRemove:
+            face_landmarks.pop(each)
         facial_feature = random.choice(list(face_landmarks.keys()))
-        print("The {} in this face has the following points: {}".format(facial_feature, face_landmarks[facial_feature]))
 
         d.line(face_landmarks[facial_feature], width=5)
 
     pil_image.show()
     time.sleep(.1)
+    return facial_feature, face_landmarks[facial_feature]
 
 
-    return True
     
 def kill_example_pictures():
     myCmd = "ps aux | pkill -f PNG"
@@ -58,7 +67,9 @@ def kill_example_pictures():
 def main():
 
     picture, img_path = select_image()
-    do_facial_feature_recog(picture, img_path)
+    chosen_feature, points = do_facial_feature_recog(picture, img_path)
+
+    print("The important information: \n Picture chosen: {} \n Chosen feature: {} \n Points of chosen feature: {}".format(picture, chosen_feature, points))
     time.sleep(5)
     kill_example_pictures()
 
