@@ -62,22 +62,3 @@ def kill_example_pictures():
     os.system(myCmd)
 
 
-
-
-def main():
-
-    picture, img_path = select_image()
-    chosen_feature, points = do_facial_feature_recog(picture, img_path)
-
-    print("The important information: \n Picture chosen: {} \n Chosen feature: {} \n Points of chosen feature: {}".format(picture, chosen_feature, points))
-    time.sleep(5)
-    kill_example_pictures()
-
-
-
-
-
-
-
-
-main()
