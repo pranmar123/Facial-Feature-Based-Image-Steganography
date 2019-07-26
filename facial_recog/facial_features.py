@@ -50,7 +50,7 @@ def do_facial_feature_recog(img,path):
         facial_feature = random.choice(list(face_landmarks.keys()))
 
         d.line(face_landmarks[facial_feature], width=5)
-
+    #test = pil_image.get_data()
     pil_image.show()
     time.sleep(.1)
     return facial_feature, face_landmarks[facial_feature]
