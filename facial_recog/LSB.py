@@ -65,7 +65,7 @@ def encode(picture,imgPath,chosenFeature,points):
     newImage = image.copy()
     encodeMessage(newImage, message)
 
-    newImage.save("save.jpg")
+    newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/save.png","PNG")
     #naybe I could save picture, imgpath, chosenfeature, and points be saved on a txt that the decode function
     #will extract from the text file
 

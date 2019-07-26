@@ -7,10 +7,6 @@ import random
 def select_image():
     path = "/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset"
     pictures_list = os.listdir(path)
-    #remove any non pictures from pictures_list
-    for each in pictures_list:
-        if ".jpg" not in each:
-            pictures_list.remove(each)
 
     #randomly selecting a element from our picture list to perform facial feature recognition 
     picture = random.choice(pictures_list)
@@ -50,7 +46,6 @@ def do_facial_feature_recog(img,path):
         facial_feature = random.choice(list(face_landmarks.keys()))
 
         d.line(face_landmarks[facial_feature], width=5)
-    #test = pil_image.get_data()
     pil_image.show()
     time.sleep(.1)
     return facial_feature, face_landmarks[facial_feature]

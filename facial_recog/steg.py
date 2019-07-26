@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt
 import scipy
 import LSB
 
-
+#figure out how to save the points where the white lines exist and trasnfer them to ONLY use that area
+#in LSB.
+#if not use PNG and look up how to edit direct pixels in PNG or BITMAP
 
 
 
@@ -21,7 +23,7 @@ def main():
     time.sleep(2)
     facial_features.kill_example_pictures()
     LSB.encode(picture,imgPath,chosenFeature,points)
-    imgPath = 
-    LSB.decode(picture,imgPath,chosenFeature,points)
+    imgPath = "/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/save.png"
+    print("Decoded: {}".format(LSB.decode(picture,imgPath,chosenFeature,points)))
 
 main()
