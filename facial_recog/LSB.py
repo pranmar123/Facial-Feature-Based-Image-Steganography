@@ -10,10 +10,10 @@ def generateData(data):
     return newData
 
 #modify pixels based on the 8-bit binary data and return the pixels
-def modifyPixels(pixels, data):
+def modifyPixels(pixels, pixels_list, data):
     dataList = generateData(data)
     lengthOfData = len(dataList)
-    imageData = iter(pixels)
+    imageData = iter(pixels_list)
 
     for i in range(lengthOfData):
         #taking 3 pixels at a time
@@ -43,19 +43,17 @@ def modifyPixels(pixels, data):
         yield pixels[6:9]
 
 #Encoding message into image
-def encodeMessage(newImage, message, points):
+def encodeMessage(newImage, message, points_list,pixels_list):
     w = newImage.size[0]
-    (x,y) = (0,0)
-    for pixel in modifyPixels(newImage.getdata(), message):
+    counter = 0
+    for pixel in modifyPixels(newImage.getdata(), pixels_list, message):
         #putting the modified pixels in the new image
+        x,y = points_list[counter]
+        counter+=1
         newImage.putpixel((x,y), pixel)
-        if (x == w - 1):
-            x = 0
-            y += 1
-        else:
-            x += 1
 
-def encode(picture,imgPath,chosenFeature,points):
+
+def encode(picture,imgPath,chosenFeature,points_list,pixels_list):
     image = Image.open(imgPath,'r')
 
     message = str(input("Enter the message you wish to encode: "))
@@ -63,19 +61,28 @@ def encode(picture,imgPath,chosenFeature,points):
         raise ValueError("Message is empty") 
     
     newImage = image.copy()
-    encodeMessage(newImage, message, points)
+    encodeMessage(newImage, message, points_list, pixels_list)
 
     newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/save.png","PNG")
     #naybe I could save picture, imgpath, chosenfeature, and points be saved on a txt that the decode function
     #will extract from the text file
 
-def decode(picture, imgPath, chosenFeature, points):
+def decode(picture, imgPath, chosenFeature, points_list, pixels_list):
     image = Image.open(imgPath,'r')
     message = ''
-    imageData = iter(image.getdata())
+    pix_map = image.load()
+    #get modified pixels
+    modified_pixels_list = []
+    for pair in points_list:
+        x,y = pair[0], pair[1]
+        modified_pixels_list.append(pix_map[x,y])
 
+    imageData = iter(modified_pixels_list) #we dont want the original pixels here we want the modified pixels here. 
     while True:
-        pixels = pixels = [value for value in imageData.__next__()[:3] + imageData.__next__()[:3] + imageData.__next__()[:3]]
+        #THE PROBLEM IS THE VALUE FOR VALUE is returning the original pixels but we need the modified pixels there.
+        #one way to do it is get the points of all the places we modified and then get the NEW pixels from that and
+        #plug that into imageData. 
+        pixels = [value for value in imageData.__next__()[:3] + imageData.__next__()[:3] + imageData.__next__()[:3]]
         #binary data string
         binstr = ''
         for i in pixels[:8]:
