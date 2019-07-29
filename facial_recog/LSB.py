@@ -43,7 +43,7 @@ def modifyPixels(pixels, data):
         yield pixels[6:9]
 
 #Encoding message into image
-def encodeMessage(newImage, message):
+def encodeMessage(newImage, message, points):
     w = newImage.size[0]
     (x,y) = (0,0)
     for pixel in modifyPixels(newImage.getdata(), message):
@@ -63,7 +63,7 @@ def encode(picture,imgPath,chosenFeature,points):
         raise ValueError("Message is empty") 
     
     newImage = image.copy()
-    encodeMessage(newImage, message)
+    encodeMessage(newImage, message, points)
 
     newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/save.png","PNG")
     #naybe I could save picture, imgpath, chosenfeature, and points be saved on a txt that the decode function

@@ -17,13 +17,13 @@ import LSB
 def main():
 
     picture, imgPath = facial_features.select_image()
-    chosenFeature, points = facial_features.do_facial_feature_recog(picture, imgPath)
+    chosenFeature, points_list, pixels_list = facial_features.do_facial_feature_recog(picture, imgPath)
 
-    print("The important information: \n Picture chosen: {} \n Chosen feature: {} \n Points of chosen feature: {}".format(picture, chosenFeature, points))
+    print("The important information: \n Picture chosen: {} \n Chosen feature: {} \n Points of chosen feature: {}".format(picture, chosenFeature, points_list))
     time.sleep(2)
     facial_features.kill_example_pictures()
-    LSB.encode(picture,imgPath,chosenFeature,points)
+    LSB.encode(picture,imgPath,chosenFeature,points_list)
     imgPath = "/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/save.png"
-    print("Decoded: {}".format(LSB.decode(picture,imgPath,chosenFeature,points)))
+    print("Decoded: {}".format(LSB.decode(picture,imgPath,chosenFeature,points_list)))
 
 main()

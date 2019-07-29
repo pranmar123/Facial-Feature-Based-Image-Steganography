@@ -44,11 +44,19 @@ def do_facial_feature_recog(img,path):
         for each in toRemove:
             face_landmarks.pop(each)
         facial_feature = random.choice(list(face_landmarks.keys()))
+        #converting the points of landmark chosen to pixels
+        points = face_landmarks[facial_feature]
+        pixels = pil_image.load()
+        pixel_list = []
+        for pair in points:
+            x,y = pair[0], pair[1]
+            pixel_list.append(pixels[x,y])
 
         d.line(face_landmarks[facial_feature], width=5)
     pil_image.show()
+
     time.sleep(.1)
-    return facial_feature, face_landmarks[facial_feature]
+    return facial_feature, face_landmarks[facial_feature],pixel_list
 
 
     
