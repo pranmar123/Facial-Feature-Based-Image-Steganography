@@ -53,7 +53,7 @@ def encodeMessage(newImage, message, points_list,pixels_list):
         newImage.putpixel((x,y), pixel)
 
 
-def encode(picture,imgPath,chosenFeature,points_list,pixels_list):
+def encode(picture,imgPath,points_list,pixels_list):
     image = Image.open(imgPath,'r')
 
     message = str(input("Enter the message you wish to encode: "))
@@ -63,25 +63,22 @@ def encode(picture,imgPath,chosenFeature,points_list,pixels_list):
     newImage = image.copy()
     encodeMessage(newImage, message, points_list, pixels_list)
 
-    newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/save.png","PNG")
-    #naybe I could save picture, imgpath, chosenfeature, and points be saved on a txt that the decode function
-    #will extract from the text file
+    newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/"+picture,"PNG")
 
-def decode(picture, imgPath, chosenFeature, points_list, pixels_list):
+
+def decode(picture, imgPath, points_list):
     image = Image.open(imgPath,'r')
     message = ''
-    pix_map = image.load()
     #get modified pixels
+    pix_map = image.load()
     modified_pixels_list = []
     for pair in points_list:
         x,y = pair[0], pair[1]
         modified_pixels_list.append(pix_map[x,y])
-
+ 
     imageData = iter(modified_pixels_list) #we dont want the original pixels here we want the modified pixels here. 
     while True:
-        #THE PROBLEM IS THE VALUE FOR VALUE is returning the original pixels but we need the modified pixels there.
-        #one way to do it is get the points of all the places we modified and then get the NEW pixels from that and
-        #plug that into imageData. 
+
         pixels = [value for value in imageData.__next__()[:3] + imageData.__next__()[:3] + imageData.__next__()[:3]]
         #binary data string
         binstr = ''
