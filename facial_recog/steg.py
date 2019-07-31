@@ -23,7 +23,7 @@ def main():
 def menuEncode():
     picture, imgPath = facial_features.select_image()
     chosenFeature, pointsList, pixelsList = facial_features.do_facial_feature_recog(picture, imgPath)
-    print("The important information: \n Picture chosen: {} \n Chosen feature: {} \n Points of chosen feature: {}".format(picture, chosenFeature, pointsList))
+    print("The important information: \n Picture chosen: {} \n Chosen feature: {} ".format(picture, chosenFeature))
     time.sleep(2)
     facial_features.kill_example_pictures()
     LSB.encode(picture,imgPath,pointsList,pixelsList)
@@ -36,10 +36,10 @@ def menuDecode():
     picture = str(input("Enter the image with extension (ex: example.png): "))
     print("This is the current path: ", os.getcwd())
     imgPath = str(input("Enter the path to the image: "))
-    facialFeature = str(input("Enter the facial feature (eyes,mouth,nose): "))
+    facialFeature = str(input("Enter the facial feature (eyes, mouth, nose): "))
     #we are passing 1 in to the facial_feature_recog function to tell that function to decode
     pointsList = facial_features.do_facial_feature_recog(picture, imgPath, 1, facialFeature)
-    print(pointsList)
+
     print("Decoded: {}".format(LSB.decode(picture,imgPath, pointsList)))
 
 

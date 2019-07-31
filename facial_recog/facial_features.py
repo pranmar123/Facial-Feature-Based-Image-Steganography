@@ -8,14 +8,11 @@ def select_image():
     #replace this with a prompt for user to input the path to dataset
     path = "/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset"
     pictures_list = os.listdir(path)
-
     #randomly selecting a element from our picture list to perform facial feature recognition 
     picture = random.choice(pictures_list)
-    #delete this
-    picture = "9.png"
+    picture = '8.png'
     os.chdir(path)
     img_path = path+"/"+picture
-    print("The file that was chosen was: ", picture)
     return picture, img_path
 
 
@@ -73,8 +70,7 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
             for each in toRemove:
                 face_landmarks.pop(each)
             facial_feature = random.choice(list(face_landmarks.keys()))
-            #delete this
-            facial_feature = "mouth"
+            facial_feature = 'nose'
             points = face_landmarks[facial_feature] 
             #this is to increase our points selections
             i = 0
