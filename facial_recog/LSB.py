@@ -1,6 +1,6 @@
 from PIL import Image
-
-#convert the secret message into 8 bit binary form based on ASCII value 
+import face_recognition
+#convert the secret messagebinary form based on ASCII value
 def generateData(data):
     newData = []
 
@@ -16,9 +16,7 @@ def modifyPixels(pixels, pixels_list, data):
     imageData = iter(pixels_list)
 
     for i in range(lengthOfData):
-        #taking 3 pixels at a time
         pixels = [value for value in imageData.__next__()[:3] + imageData.__next__()[:3] + imageData.__next__()[:3]]
-
         #Pixel value should be 1 for odd and 0 for even
         for j in range(0, 8):
             if (dataList[i][j]=='0') and (pixels[j]%2 != 0):
@@ -28,7 +26,6 @@ def modifyPixels(pixels, pixels_list, data):
             
             elif (dataList[i][j] == '1') and (pixels[j] % 2 == 0):
                 pixels[j] -= 1
-
         #If the 8th pixel is 0 then it means keep reading; 1 means the msg is over
         if (i == lengthOfData - 1):
             if (pixels[-1]%2 == 0):
@@ -42,7 +39,7 @@ def modifyPixels(pixels, pixels_list, data):
         yield pixels[3:6]
         yield pixels[6:9]
 
-#Encoding message into image
+
 def encodeMessage(newImage, message, points_list,pixels_list):
     w = newImage.size[0]
     counter = 0
@@ -63,14 +60,16 @@ def encode(picture,imgPath,points_list,pixels_list):
     newImage = image.copy()
     encodeMessage(newImage, message, points_list, pixels_list)
 
-    newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/"+picture,"PNG")
+    #newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/"+picture)
+    newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/newimage.png")
 
 
 def decode(picture, imgPath, points_list):
-    image = Image.open(imgPath,'r')
+    image = face_recognition.load_image_file(imgPath)
     message = ''
     #get modified pixels
-    pix_map = image.load()
+    pil_image = Image.fromarray(image)
+    pix_map = pil_image.load()
     modified_pixels_list = []
     for pair in points_list:
         x,y = pair[0], pair[1]
@@ -78,9 +77,7 @@ def decode(picture, imgPath, points_list):
  
     imageData = iter(modified_pixels_list) #we dont want the original pixels here we want the modified pixels here. 
     while True:
-
         pixels = [value for value in imageData.__next__()[:3] + imageData.__next__()[:3] + imageData.__next__()[:3]]
-        #binary data string
         binstr = ''
         for i in pixels[:8]:
             if (i % 2 == 0):
@@ -94,4 +91,3 @@ def decode(picture, imgPath, points_list):
 
 
 
-    
