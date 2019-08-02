@@ -22,7 +22,6 @@ def main():
 def menuEncode():
     picture, imgPath = facial_features.select_image()
     chosenFeature, pointsList, pixelsList = facial_features.do_facial_feature_recog(picture, imgPath)
-    print(pointsList)
     print("The important information: \n Picture chosen: {} \n Chosen feature: {} ".format(picture, chosenFeature))
     msg = str(input("Enter message to encode: "))
     try:
@@ -45,7 +44,6 @@ def menuDecode():
     facialFeature = 'mouth'
     pointsList = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature)
     pointsList = pointsList[1]
-    print(pointsList)
     msg = LSB.decodeMessage(picture, imgPath, pointsList)
     print(msg)
     #after decoding, replace the encoded image with the original_dataset copy
