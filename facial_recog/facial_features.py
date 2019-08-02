@@ -63,6 +63,7 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
                 x,y = pair[0], pair[1]
                 pixel_list.append(pixels[x,y])
 
+
         return facial_feature,points,pixel_list
 
 
