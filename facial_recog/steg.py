@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy
 import LSB
+import shutil
 
 def main():
     choice = 0
@@ -33,11 +34,11 @@ def menuDecode():
     #we are passing 1 in to the facial_feature_recog function to tell that function to decode
     picture = '1.png'
     imgPath = '/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/1.png'
+    toGetPoints = '/home/pranmar123/Multi-Facial-Steganography/facial_recog/original_dataset/1.png'
     facialFeature = 'mouth'
-    pointsList = facial_features.do_facial_feature_recog(picture, imgPath, 1, facialFeature)
+    pointsList = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature)
     pointsList = pointsList[1]
     print("Decoded: {}".format(LSB.decode(picture,imgPath, pointsList)))
+    shutil.copyfile(toGetPoints, imgPath)  
 
-
-if __name__ == '__main__':
-    main()
+main()

@@ -49,10 +49,18 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
                 addTwo = ((x+2), (y+2))
                 addThree = ((x+3), (y+3))
                 addFour = ((x+4), (y+4))
+                addFive = ((x+5), (y+5))
+                addSix = ((x+6), (y+6))
+                addSeven = ((x+7), (y+7))
+                addEight = ((x+8), (y+8))
                 points.append(addOne)
                 points.append(addTwo)
                 points.append(addThree)
                 points.append(addFour)
+                points.append(addFive)
+                points.append(addSix)
+                points.append(addSeven)
+                points.append(addEight)
                 i+= 1
             #removing duplicates
             points = list(dict.fromkeys(points))
