@@ -20,6 +20,8 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
         image = face_recognition.load_image_file(path)
         face_landmarks_list = face_recognition.face_landmarks(image)
         pil_image = Image.fromarray(image)
+        d = ImageDraw.Draw(pil_image)
+
         for face_landmarks in face_landmarks_list:
             #combining bottom lip, top lip, and chin into mouth
             #combining left_eye, left_eyebrow, right_eye, right_eyebrow into eyes
@@ -50,17 +52,11 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
                 addThree = ((x+3), (y+3))
                 addFour = ((x+4), (y+4))
                 addFive = ((x+5), (y+5))
-                addSix = ((x+6), (y+6))
-                addSeven = ((x+7), (y+7))
-                addEight = ((x+8), (y+8))
                 points.append(addOne)
                 points.append(addTwo)
-                points.append(addThree)
-                points.append(addFour)
-                points.append(addFive)
-                points.append(addSix)
-                points.append(addSeven)
-                points.append(addEight)
+                #points.append(addThree)
+                #points.append(addFour)
+                #points.append(addFive)
                 i+= 1
             #removing duplicates
             points = list(dict.fromkeys(points))
@@ -70,6 +66,7 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
             for pair in points:
                 x,y = pair[0], pair[1]
                 pixel_list.append(pixels[x,y])
-
+            #d.line(points, width=2)
+        #pil_image.show()
         return facial_feature,points,pixel_list
 
