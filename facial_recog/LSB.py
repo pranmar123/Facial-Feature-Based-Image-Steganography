@@ -6,7 +6,6 @@ import os
 
 def encodeMessage(imageName, path, pointsList, pixelsList, msg):
     image = Image.open(path)
-    msg = "." + msg
     width, height = image.size
     if len(pointsList) < len(msg):
         raise ValueError

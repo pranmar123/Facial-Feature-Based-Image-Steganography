@@ -49,7 +49,7 @@ def menuDecode():
     msg = LSB.decodeMessage(picture, imgPath, pointsList)
     print(msg)
     #after decoding, replace the encoded image with the original_dataset copy
-    shutil.move(toGetPoints, imgPath)
+    shutil.copyfile(toGetPoints, imgPath)  
 
 
 
