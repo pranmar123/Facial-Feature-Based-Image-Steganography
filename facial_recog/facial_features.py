@@ -54,7 +54,8 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
                 points.append(addThree)
                 points.append(addFour)
                 i+= 1
-            
+            #removing duplicates
+            points = list(dict.fromkeys(points))
             #Extracting pixel values
             pixels = pil_image.load()
             pixel_list = []

@@ -61,7 +61,7 @@ def encode(picture,imgPath,points_list,pixels_list):
     encodeMessage(newImage, message, points_list, pixels_list)
 
     #newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/"+picture)
-    newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/newimage.png")
+    newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/1.png")
 
 
 def decode(picture, imgPath, points_list):
