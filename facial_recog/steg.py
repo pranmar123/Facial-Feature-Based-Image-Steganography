@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import scipy
 import LSB
 
+
 def main():
     choice = 0
     while choice != '1' and choice != '2': 
@@ -21,7 +22,11 @@ def menuEncode():
     picture, imgPath = facial_features.select_image()
     chosenFeature, pointsList, pixelsList = facial_features.do_facial_feature_recog(picture, imgPath)
     print("The important information: \n Picture chosen: {} \n Chosen feature: {} ".format(picture, chosenFeature))
-    LSB.encode(picture,imgPath,pointsList,pixelsList)
+    msg = str(input("Enter message to encode: "))
+    try:
+        LSB.encodeMessage(picture, imgPath, pointsList, pixelsList, msg)
+    except ValueError:
+        print("Message is too large to be encoded.")
 
 
 def menuDecode():
@@ -35,7 +40,9 @@ def menuDecode():
     facialFeature = 'mouth'
     pointsList = facial_features.do_facial_feature_recog(picture, imgPath, 1, facialFeature)
     pointsList = pointsList[1]
-    print("Decoded: {}".format(LSB.decode(picture,imgPath, pointsList)))
+    msg = LSB.decodeMessage(picture, imgPath, pointsList)
+    print(msg)
+
 
 
 if __name__ == '__main__':
