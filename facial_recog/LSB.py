@@ -13,6 +13,8 @@ def generateData(data):
 def modifyPixels(pixels, pixels_list, data):
     dataList = generateData(data)
     lengthOfData = len(dataList)
+    if lengthOfData > len(pixels_list):
+        raise ValueError
     imageData = iter(pixels_list)
 
     for i in range(lengthOfData):
@@ -41,7 +43,6 @@ def modifyPixels(pixels, pixels_list, data):
 
 
 def encodeMessage(newImage, message, points_list,pixels_list):
-    w = newImage.size[0]
     counter = 0
     for pixel in modifyPixels(newImage.getdata(), pixels_list, message):
         #putting the modified pixels in the new image
@@ -75,9 +76,9 @@ def decode(picture, imgPath, points_list):
         x,y = pair[0], pair[1]
         modified_pixels_list.append(pix_map[x,y])
  
-    imageData = iter(modified_pixels_list) #we dont want the original pixels here we want the modified pixels here. 
+    image_data = iter(modified_pixels_list) #we dont want the original pixels here we want the modified pixels here. 
     while True:
-        pixels = [value for value in imageData.__next__()[:3] + imageData.__next__()[:3] + imageData.__next__()[:3]]
+        pixels = [value for value in image_data.__next__()[:3] + image_data.__next__()[:3] + image_data.__next__()[:3]]
         binstr = ''
         for i in pixels[:8]:
             if (i % 2 == 0):

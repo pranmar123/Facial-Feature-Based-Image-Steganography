@@ -23,7 +23,11 @@ def menuEncode():
     picture, imgPath = facial_features.select_image()
     chosenFeature, pointsList, pixelsList = facial_features.do_facial_feature_recog(picture, imgPath)
     print("The important information: \n Picture chosen: {} \n Chosen feature: {} ".format(picture, chosenFeature))
-    LSB.encode(picture,imgPath,pointsList,pixelsList)
+    try:
+        LSB.encode(picture,imgPath,pointsList,pixelsList)
+    except ValueError:
+        print("The message is too large to be encoded.")
+ 
 
 
 def menuDecode():
@@ -38,7 +42,10 @@ def menuDecode():
     facialFeature = 'mouth'
     pointsList = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature)
     pointsList = pointsList[1]
-    print("Decoded: {}".format(LSB.decode(picture,imgPath, pointsList)))
-    shutil.copyfile(toGetPoints, imgPath)  
+    try:
+        print("Decoded: {}".format(LSB.decode(picture,imgPath, pointsList)))
+        shutil.copyfile(toGetPoints, imgPath)  
+    except StopIteration:
+        shutil.copyfile(toGetPoints, imgPath)  
 
 main()
