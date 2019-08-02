@@ -64,7 +64,7 @@ def encodeMessage(imageName, path, pointsList, pixelsList, msg):
         newPixel[1] = int(newPixel[1])
         newPixel[2] = int(newPixel[2])
         image.putpixel((pointsList[i]), tuple(newPixel))
-    pixel = pixels[pointsList[i+1]] #analyze this
+    pixel = pixels[pointsList[i+1]]
     newPixel = list(pixel)
     newPixel[0] = str(newPixel[0])
     newPixel[1] = str(newPixel[1])

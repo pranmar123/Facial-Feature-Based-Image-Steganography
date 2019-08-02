@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy
 import LSB
+import shutil
 
 
 def main():
@@ -21,12 +22,14 @@ def main():
 def menuEncode():
     picture, imgPath = facial_features.select_image()
     chosenFeature, pointsList, pixelsList = facial_features.do_facial_feature_recog(picture, imgPath)
+    print(pointsList)
     print("The important information: \n Picture chosen: {} \n Chosen feature: {} ".format(picture, chosenFeature))
     msg = str(input("Enter message to encode: "))
     try:
         LSB.encodeMessage(picture, imgPath, pointsList, pixelsList, msg)
     except ValueError:
         print("Message is too large to be encoded.")
+    
 
 
 def menuDecode():
@@ -37,11 +40,16 @@ def menuDecode():
     #we are passing 1 in to the facial_feature_recog function to tell that function to decode
     picture = '1.png'
     imgPath = '/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/1.png'
+    #toGetPoints is there so that we get THE ORIGINAL points of the PNG instead of the modified points.
+    toGetPoints = '/home/pranmar123/Multi-Facial-Steganography/facial_recog/original_dataset/1.png'
     facialFeature = 'mouth'
-    pointsList = facial_features.do_facial_feature_recog(picture, imgPath, 1, facialFeature)
+    pointsList = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature)
     pointsList = pointsList[1]
+    print(pointsList)
     msg = LSB.decodeMessage(picture, imgPath, pointsList)
     print(msg)
+    #after decoding, replace the encoded image with the original_dataset copy
+    shutil.move(toGetPoints, imgPath)
 
 
 

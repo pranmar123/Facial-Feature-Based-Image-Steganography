@@ -65,3 +65,4 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
 
         return facial_feature,points,pixel_list
 
+
