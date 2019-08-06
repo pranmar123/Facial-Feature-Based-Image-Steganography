@@ -3,7 +3,6 @@ import time
 import os
 from PIL import Image
 import numpy as np 
-import matplotlib.pyplot as plt
 import scipy
 import LSB
 import shutil
