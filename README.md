@@ -12,11 +12,11 @@ JPEG and other lossy compression formats are not supported.
 Installation
 ------------
 
-This tool only require OpenCV and its dependencies.
+On Linux:
 
-```bash
-pip install -r requirements.txt
-```
+1. Run ``` bash sudo apt-get install cmake ```
+
+2. Run ```bash pip install -r requirements.txt ```
 
 Usage
 -----

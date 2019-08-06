@@ -44,6 +44,7 @@ def menuDecode():
     pointsList = pointsList[1]
     try:
         print("Decoded: {}".format(LSB.decode(picture,imgPath, pointsList)))
+        #shutil will copy the original file and replace the encoded image with the original copy of the image
         shutil.copyfile(toGetPoints, imgPath)  
     except StopIteration:
         shutil.copyfile(toGetPoints, imgPath)  
