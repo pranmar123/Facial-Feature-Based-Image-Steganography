@@ -14,9 +14,15 @@ Installation
 
 On Linux:
 
-1. Run ``` bash sudo apt-get install cmake ```
+1. Run ``` sudo apt-get install cmake ```
 
-2. Run ```bash pip install -r requirements.txt ```
+2. Run ``` pip install -r requirements.txt ``` from the project's root directory
+
+On Windows:
+
+1. Downlad cmake from ```https://cmake.org/download/```
+
+2. Run ``` python -m pip install -r requirements.txt ``` from the project's root directory
 
 Usage
 -----
