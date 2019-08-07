@@ -1,6 +1,6 @@
 from PIL import Image
 import face_recognition
-#convert the secret messagebinary form based on ASCII value
+#convert the secret message binary form based on ASCII value
 def generateData(data):
     newData = []
 
