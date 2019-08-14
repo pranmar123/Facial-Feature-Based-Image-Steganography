@@ -1,0 +1,14 @@
+Picture used: 1.png
+Message: Hello, this is a secret message that I am sending!
+Size: 25 bytes
+
+Case1: Nose
+Pictures needed: Original, the points chosen, the stego, where data is hidden
+Size of file before encoding: 70.4 kB(70,371 bytes)
+Size of file after encoding: 
+Total # of bytes possible to hide: 
+
+
+Case2: Mouth
+
+Case3: Eyes

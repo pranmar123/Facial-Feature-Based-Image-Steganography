@@ -38,7 +38,7 @@ def menuDecode():
     picture = '1.png'
     imgPath = '/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/1.png'
     toGetPoints = '/home/pranmar123/Multi-Facial-Steganography/facial_recog/original_dataset/1.png'
-    facialFeature = 'mouth'
+    facialFeature = 'nose'
     pointsList = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature)
     pointsList = pointsList[1]
     try:
@@ -46,6 +46,7 @@ def menuDecode():
         #shutil will copy the original file and replace the encoded image with the original copy of the image
         shutil.copyfile(toGetPoints, imgPath)  
     except StopIteration:
-        shutil.copyfile(toGetPoints, imgPath)  
+        print("Exception")
+        shutil.copyfile(toGetPoints, imgPath)
 
 main()
