@@ -1,8 +1,5 @@
 # Facial Feature Based Image Steganography 
 
-=================
-
-
 Information
 -----------
 
