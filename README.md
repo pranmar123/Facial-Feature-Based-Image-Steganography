@@ -1,10 +1,6 @@
 # Facial Feature Based Image Steganography 
 
-Information
------------
 
-
-JPEG and other lossy compression formats are not supported. 
 
 Installation
 ------------
@@ -27,3 +23,10 @@ On Windows:
 
 Usage
 -----
+
+
+
+
+Compatibility
+-----------
+JPEG and other lossy compression formats are not supported. 
