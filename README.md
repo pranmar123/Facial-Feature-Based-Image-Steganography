@@ -13,13 +13,17 @@ On Linux:
 
 1. Run ``` sudo apt-get install cmake ```
 
-2. Run ``` pip install -r requirements.txt ``` from the project's root directory
+2. Clone this repo to your local machine
+
+3.. Run ``` pip install -r requirements.txt ``` from the project's root directory
 
 On Windows:
 
 1. Downlad cmake from ```https://cmake.org/download/```
 
-2. Run ``` python -m pip install -r requirements.txt ``` from the project's root directory
+2. Clone this repo to your local machine
+
+3. Run ``` python -m pip install -r requirements.txt ``` from the project's root directory
 
 Usage
 -----
