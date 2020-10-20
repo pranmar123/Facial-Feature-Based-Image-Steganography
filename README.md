@@ -25,7 +25,9 @@ Installation Issues
 ------------
 
 On Linux:
-1. If you get an error installing ```scipy-1.3.0``` run ```sudo apt-get install gfortran libopenblas-dev liblapack-dev``` then try again.
+If you get an error installing ```scipy-1.3.0``` 
+1. Run ```sudo apt-get install gfortran libopenblas-dev liblapack-dev```
+2. Try to run ``` pip3 install -r requirements.txt ``` again.
 
 Usage
 -----
