@@ -11,7 +11,7 @@ On Linux:
 
 2. Clone this repo to your local machine
 
-3.. Run ``` pip install -r requirements.txt ``` from the project's root directory
+3. Run ``` pip3 install -r requirements.txt ``` from the project's root directory
 
 On Windows:
 
