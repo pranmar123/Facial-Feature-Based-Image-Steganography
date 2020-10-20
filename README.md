@@ -29,6 +29,9 @@ If you get an error installing ```scipy-1.3.0```
 1. Run ```sudo apt-get install gfortran libopenblas-dev liblapack-dev```
 2. Try to run ``` pip3 install -r requirements.txt ``` again.
 
+If you get an error installing ```Pillow-6.1.0``` 
+1. Run ```sudo apt-get install libjpeg-dev zlib1g-dev```
+2. Try to run ``` pip3 install -r requirements.txt ``` again.
 Usage
 -----
 
