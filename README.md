@@ -39,7 +39,7 @@ If you get an error installing ```Pillow-6.1.0```
 Usage
 -----
 
-
+Run ```steg.py```
 
 
 Compatibility
