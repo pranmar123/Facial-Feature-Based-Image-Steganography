@@ -11,7 +11,10 @@ On Linux:
 
 2. Clone this repo to your local machine
 
-3. Run ``` pip3 install -r requirements.txt ``` from the project's root directory
+3. Run ```sudo apt-get install gfortran libopenblas-dev liblapack-dev && sudo apt-get install libjpeg-dev zlib1g-dev && sudo apt-get install imagemagick```
+to install the required packages
+
+4. Run ``` pip3 install -r requirements.txt ``` from the project's root directory
 
 On Windows:
 
