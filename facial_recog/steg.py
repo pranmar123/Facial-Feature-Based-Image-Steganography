@@ -36,8 +36,8 @@ def menuDecode():
     #facialFeature = str(input("Enter the facial feature (eyes, mouth, nose): "))
     #we are passing 1 in to the facial_feature_recog function to tell that function to decode
     picture = '1.png'
-    imgPath = '/home/pranmar123/Facial-Feature-Based-Image-Steganography//facial_recog/dataset/1.png'
-    toGetPoints = '/home/pranmar123/Facial-Feature-Based-Image-Steganography//facial_recog/original_dataset/1.png'
+    imgPath = '/Users/Michael/Documents/Facial-Feature-Based-Image-Steganography//facial_recog/dataset/1.png'
+    toGetPoints = '/Users/Michael/Documents/Facial-Feature-Based-Image-Steganography//facial_recog/original_dataset/1.png'
     facialFeature = 'nose'
     pointsList = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature)
     pointsList = pointsList[1]
