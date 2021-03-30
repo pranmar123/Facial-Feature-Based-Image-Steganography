@@ -19,8 +19,12 @@ def select_image():
 def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
         image = face_recognition.load_image_file(path)
         face_landmarks_list = face_recognition.face_landmarks(image)
+        face_location = face_recognition.face_locations(image)
         pil_image = Image.fromarray(image)
         d = ImageDraw.Draw(pil_image)
+
+
+        print("I found {} face(s) in this photograph)".format(len(face_location)))
 
         for face_landmarks in face_landmarks_list:
             #combining bottom lip, top lip, and chin into mouth
@@ -29,6 +33,13 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
             face_landmarks['mouth'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin']
             face_landmarks['eyes'] = face_landmarks['left_eye'] + face_landmarks['right_eye'] + face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow']
             face_landmarks['nose'] = face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
+
+           
+
+            ##NEW STUFF TO TEST
+
+            face_landmarks['face'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin'] + face_landmarks['left_eye'] + face_landmarks['right_eye'] + face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow'] + face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
+             
             #cleaning up the leftover points
             toRemove = ["bottom_lip","top_lip","chin","left_eye","right_eye","left_eyebrow","right_eyebrow","nose_bridge","nose_tip"]
             for each in toRemove:
@@ -38,8 +49,8 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
                 facial_feature = facialFeature
             else: 
                 #facial_feature = random.choice(list(face_landmarks.keys()))
-                #facial_feature = str(input("Enter the facial feature that you want to use for encoding: "))
-                facial_feature = 'nose' # delete this later
+                facial_feature = str(input("Enter the facial feature that you want to use for encoding: "))
+                #facial_feature = 'face' # delete this later
 
             points = face_landmarks[facial_feature] 
             #this is to increase our points selections
@@ -66,7 +77,7 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
                 points.append(subTwo)
                 points.append(subThree)
                 points.append(subFour)
-                i+= 1
+                i += 1
             #removing duplicates
             points = list(dict.fromkeys(points))
             print("This is len of points: ", len(points)) #test
