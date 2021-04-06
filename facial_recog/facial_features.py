@@ -3,14 +3,20 @@ import os
 import face_recognition
 import time
 import random
+from pathlib import Path
 
 def select_image():
-    #replace this with a prompt for user to input the path to dataset
-    path = "/Users/Michael/Documents/Facial-Feature-Based-Image-Steganography//facial_recog/dataset"
+
+    #script_location will generate an absolute path of the current file. This is the fix for hardcoding location paths and overall improves the experience of the person trying to use the software 
+    # so they no longer have to manually change the location paths on each machine this is run. 
+
+    script_location = Path(__file__).absolute().parent
+    path = str(script_location) +"/dataset"
+    
     pictures_list = os.listdir(path)
     #randomly selecting a element from our picture list to perform facial feature recognition 
-    #picture = str(input("Enter the name of the file you want to use for encoding: "))
-    picture = '1.png' #test
+    picture = str(input("Enter the name of the file you want to use for encoding: "))
+    #picture = '1.png' #test
     os.chdir(path)
     img_path = path+"/"+picture
     return picture, img_path
@@ -48,9 +54,8 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
             if decode == 1:
                 facial_feature = facialFeature
             else: 
-                #facial_feature = random.choice(list(face_landmarks.keys()))
-                facial_feature = str(input("Enter the facial feature that you want to use for encoding: "))
-                #facial_feature = 'face' # delete this later
+                #facial_feature = random.choice(list(face_landmarks.keys())) #if we want to allow the user to randomize their pick
+                facial_feature = str(input("Enter the facial feature that you want to use for encoding (mouth, nose, eyes, face): "))
 
             points = face_landmarks[facial_feature] 
             #this is to increase our points selections

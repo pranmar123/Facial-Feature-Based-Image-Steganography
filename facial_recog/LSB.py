@@ -1,5 +1,6 @@
 from PIL import Image
 import face_recognition
+from pathlib import Path
 #convert the secret message binary form based on ASCII value
 def generateData(data):
     newData = []
@@ -63,7 +64,8 @@ def encode(picture,imgPath,points_list,pixels_list):
     encodeMessage(newImage, message, points_list, pixels_list)
 
     #newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/"+picture)
-    newImage.save("/Users/Michael/Documents/Facial-Feature-Based-Image-Steganography//facial_recog/dataset/1.png")
+    script_location = Path(__file__).absolute().parent
+    newImage.save(str(script_location) + "/dataset/" + picture)
 
 
 

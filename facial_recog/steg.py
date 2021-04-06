@@ -6,6 +6,7 @@ import numpy as np
 import scipy
 import LSB
 import shutil
+from pathlib import Path
 
 def main():
     choice = 0
@@ -30,15 +31,16 @@ def menuEncode():
 
 
 def menuDecode():
-    #picture = str(input("Enter the image with extension (ex: example.png): "))
+
+    script_location = Path(__file__).absolute().parent
+    picture = str(input("Enter the image with extension (ex: example.png): "))
     print("This is the current path: ", os.getcwd())
     #imgPath = str(input("Enter the path to the image: "))
-    #facialFeature = str(input("Enter the facial feature (eyes, mouth, nose): "))
+    facialFeature = str(input("Enter the facial feature (eyes, mouth, nose, face): "))
     #we are passing 1 in to the facial_feature_recog function to tell that function to decode
-    picture = '1.png'
-    imgPath = '/Users/Michael/Documents/Facial-Feature-Based-Image-Steganography//facial_recog/dataset/1.png'
-    toGetPoints = '/Users/Michael/Documents/Facial-Feature-Based-Image-Steganography//facial_recog/original_dataset/1.png'
-    facialFeature = 'nose'
+    #picture = '1.png'
+    imgPath = str(script_location) +"/dataset/" + picture
+    toGetPoints = str(script_location) +"/original_dataset/" + picture
     pointsList = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature)
     pointsList = pointsList[1]
     try:
