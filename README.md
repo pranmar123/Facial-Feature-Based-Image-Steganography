@@ -57,7 +57,7 @@ If you don't have pip3 installed
 2. Run ```python3 get-pip.py```
 
 If you get an error installing ```requirements.txt``` 
-1. Download xCode off the MacOS App Store or click [here](https://apps.apple.com/us/app/xcode/id497799835?mt=12)
+1. Download xCode off the MacOS App Store or click [here](https://apps.apple.com/us/app/xcode/id497799835?mt=12) to download. 
 2. Run ```pip3 install -r requirements.txt``` again.
 
 If you continue to have errors
