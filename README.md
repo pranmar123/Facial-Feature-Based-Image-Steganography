@@ -24,7 +24,7 @@ On Windows:
 
 On MacOS: 
 
-1. Open Terminal and run ```pip3 isntall cmake```
+1. Open Terminal and run ```pip3 install cmake```
 
 2. Clone this repository to your local machine.
 
@@ -46,9 +46,10 @@ On Windows:
 If you get an error installing ```requirements.txt```
 1. Download Visual Studio Build Tools [here](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=15#)
 2. Run ```python -m pip install -r requirements.txt```
+
 If you continue to get errors:
 1. Download all dependancies manually through a new terminal window. 
-2. Ex. pip install Pillow
+2. Ex. ```pip install Pillow```
 
 On MacOS: 
 If you don't have pip3 installed
@@ -61,7 +62,7 @@ If you get an error installing ```requirements.txt```
 
 If you continue to have errors
 1. Install all dependencies through a new terminal windows. 
-2. Ex. pip3 install Pillow
+2. Ex. ```pip3 install Pillow```
 
 Usage
 -----
