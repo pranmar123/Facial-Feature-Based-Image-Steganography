@@ -57,11 +57,21 @@ def encode(picture,imgPath,points_list,pixels_list):
     maxLen = len(points_list) // 3
     print("This is the maximum number of bytes that can be encoded: ", maxLen)
     message = str(input("Enter the message you wish to encode: "))
-    if (len(message) == 0):
-        raise ValueError("Message is empty") 
-    
+    flag=True
+    while flag:
+        if (len(message)> maxLen):
+            print("ERROR: The message length is greater than ", maxLen," byte")
+            message = str(input("Please Enter a message again: "))
+        elif (len(message)==0):
+            print("ERROR: The message is empty ")
+            message = str(input("Please Enter a message again: "))
+        else:
+            flag=False
+
+
     newImage = image.copy()
     encodeMessage(newImage, message, points_list, pixels_list)
+    print("The message Encoded successfully")
 
     #newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/"+picture)
     script_location = Path(__file__).absolute().parent

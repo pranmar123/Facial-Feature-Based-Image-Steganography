@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw
-import os.path
+import os
 import face_recognition
 import time
 import random
@@ -27,7 +27,6 @@ def select_image():
             picture = str(input("The file doesn't exist, please Enter a correct file name :"))
             img_path = path+"/"+picture
             if os.path.isfile(img_path)==True:
-                img_path = path+"/"+picture
                 flag=False
        
 
@@ -68,6 +67,10 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
             else: 
                 #facial_feature = random.choice(list(face_landmarks.keys())) #if we want to allow the user to randomize their pick
                 facial_feature = str(input("Enter the facial feature that you want to use for encoding (mouth, nose, eyes, face): "))
+                facial_feature=facial_feature.lower()
+                while facial_feature != 'nose' and facial_feature != 'mouth' and facial_feature != 'eyes' and facial_feature != 'face':
+                    facial_feature = str(input("Please Enter a correct facial feature: "))
+                    facial_feature=facial_feature.lower()
 
             points = face_landmarks[facial_feature] 
             #this is to increase our points selections
