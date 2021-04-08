@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw
-import os
+import os.path
 import face_recognition
 import time
 import random
@@ -17,8 +17,20 @@ def select_image():
     #randomly selecting a element from our picture list to perform facial feature recognition 
     picture = str(input("Enter the name of the file you want to use for encoding: "))
     #picture = '1.png' #test
+    flag=True
     os.chdir(path)
     img_path = path+"/"+picture
+    #print(os.path.isfile(img_path))
+ 
+    if os.path.isfile(img_path)==False:
+        while flag:
+            picture = str(input("The file doesn't exist, please Enter a correct file name :"))
+            img_path = path+"/"+picture
+            if os.path.isfile(img_path)==True:
+                img_path = path+"/"+picture
+                flag=False
+       
+
     return picture, img_path
 
 
@@ -30,7 +42,7 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
         d = ImageDraw.Draw(pil_image)
 
 
-        print("I found {} face(s) in this photograph)".format(len(face_location)))
+        print("I found {} face(s) in this photograph".format(len(face_location)))
 
         for face_landmarks in face_landmarks_list:
             #combining bottom lip, top lip, and chin into mouth
