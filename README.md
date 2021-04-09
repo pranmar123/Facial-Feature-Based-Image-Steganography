@@ -1,6 +1,6 @@
 # Facial Feature Based Image Steganography 
 
-This is a project for NDSU's CSCI 404. The project main purpose to take an image, detect facial features, and then encode a secret message into that image. It encodes the message using the method of changing the least significant bit of the pixels to keep the message hiddnen and the image almost unaltered. 
+This is a project for NDSU's CSCI 404. The project main purpose to take an image, detect facial features, and then encode a secret message into that image. It encodes the message using the method of changing the least significant bit of the pixels to keep the message hidden and the image almost unaltered. 
 
 Installation
 ------------
