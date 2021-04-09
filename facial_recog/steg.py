@@ -7,11 +7,12 @@ import scipy
 import LSB
 import shutil
 from pathlib import Path
+import time
 
 def main():
     choice = 0
     while choice != '1' and choice != '2' and choice != '3':
-        choice = input("Choose from the following menu: \n 1 to encode \n 2 to decode \n 3 to exit \n your choice is : ")
+        choice = input("Please select an option: \n 1. Encode Message \n 2. Decode Message \n 3. Exit \n Your Selection: ")
         if choice == '1':
             menuEncode()
             choice=0
@@ -19,8 +20,8 @@ def main():
             menuDecode()
             choice=0
         elif choice == '3':
+            print("Thank You. Exiting.")
             exit()
-
 
 
 def menuEncode():
@@ -44,7 +45,7 @@ def menuDecode():
     imgPath = str(script_location) +"/dataset/" + picture
     if os.path.isfile(imgPath)==False:
         while flag:
-            picture = str(input("This image doesn't exist, please Enter a correct image name :"))
+            picture = str(input("This image doesn't exist, please Enter a correct image name: "))
             imgPath = str(script_location) +"/dataset/" + picture
             if os.path.isfile(imgPath)==True:
                 flag=False

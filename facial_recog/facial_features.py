@@ -24,7 +24,7 @@ def select_image():
  
     if os.path.isfile(img_path)==False:
         while flag:
-            picture = str(input("The file doesn't exist, please Enter a correct file name :"))
+            picture = str(input("The file doesn't exist, please enter a correct file name: "))
             img_path = path+"/"+picture
             if os.path.isfile(img_path)==True:
                 flag=False
