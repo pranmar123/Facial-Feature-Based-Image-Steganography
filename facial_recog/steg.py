@@ -25,11 +25,11 @@ def main():
 
 
 def menuEncode():
-    picture, imgPath = facial_features.select_image()
-    chosenFeature, pointsList, pixelsList = facial_features.do_facial_feature_recog(picture, imgPath)
+    picture, imgPath = facial_features.select_image() #select_image() function is called
+    chosenFeature, pointsList, pixelsList = facial_features.do_facial_feature_recog(picture, imgPath) #do_facial_feature_recog() function
     print("The important information: \n Picture chosen: {} \n Chosen feature: {} ".format(picture, chosenFeature))
     try:
-        LSB.encode(picture,imgPath,pointsList,pixelsList)
+        LSB.encode(picture,imgPath,pointsList,pixelsList, chosenFeature)
     except ValueError:
         print("The message is too large to be encoded.")
    

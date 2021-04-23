@@ -1,6 +1,7 @@
 from PIL import Image
 import face_recognition
 from pathlib import Path
+##from facial_recog.facial_features import expand_points
 #convert the secret message binary form based on ASCII value
 def generateData(data):
     newData = []
@@ -52,16 +53,58 @@ def encodeMessage(newImage, message, points_list,pixels_list):
         newImage.putpixel((x,y), pixel)
 
 
-def encode(picture,imgPath,points_list,pixels_list):
+def encode(picture,imgPath,points_list,pixels_list,chosen_facial):
     image = Image.open(imgPath,'r')
     maxLen = len(points_list) // 3
     print("This is the maximum number of bytes that can be encoded: ", maxLen)
     message = str(input("Enter the message you wish to encode: "))
+
     flag=True
+    largeMessageFlag = True
+    extendFlag=True
+    pointsListOriginal = points_list
     while flag:
-        if (len(message)> maxLen):
-            print("ERROR: The message length is greater than ", maxLen," byte")
-            message = str(input("Please Enter a message again: "))
+        
+        extend = "temp" #instantiate out of scope variable
+        if (len(message)> maxLen): #check if the message is too large to encode
+            print("ERROR: The message length is greater than ", maxLen," bytes")
+            while largeMessageFlag: #loop for error correction 
+                if(chosen_facial == 'face'): #if the 'face' feature is selected there are no additonal features to pick. 
+                    print("ERROR: The message as typed is too large. There are no aditional features to encode to.")
+                    message = str(input("Please enter a smaller message: ")) #give the option to encode a smaller message, loop if large again
+                    if(len(message) < maxLen): #If the message is less than max byte length, message is good to encode, close flags
+                        largeMessageFlag = False
+                        extendFlag = False
+                elif extendFlag == True: #Check if 
+                    extend = str(input("Would you like to add an additional facial feature? (y/n): ")).lower()
+                    largeMessageFlag = False
+
+            #extend facial feature
+            while extendFlag: 
+                if (extend == 'y'): 
+                    extended_feature = str(input("Enter the facial feature that you want to extend for encoding (mouth, nose, eyes): ")).lower()
+                    extendFlag = False
+                    flag = False
+
+                    ##THINGS TO FINISH
+                    ## BREAK FACIAL_FEATURES DO_FACIAL_FEATURES_RECOG INTO MULTIPLE FUNCTIONS
+                    ## THIS WILL THEN ALLOW YOU TO RUN PIECES OF IT TO THEN GET THE POINTS OF THE NEXT FACIAL FEATURE
+                    ## ONCE YOU HAVE THE POINTS YOU CAN APPEND THAT TO THE MASTER POINTS LIST AND THEN WRITE IT
+                    ## HAVE IT CHECK WHAT FACIAL FEATURE HAS BEEN SELECTED SO YOU DONT ENCODE THE MESSAGE INTO THE SAME FEATURE
+                    ## TO THE IMAGE. I THINK THAT SHOULD MAKE SENSE???
+
+                    
+
+                    ##CODE expand pixel and then figure out how to find where the message ends
+                elif(extend == 'n'): 
+                    message = str(input("Please enter the message you wish to encode. "))
+                    extendFlag = False
+                    flag = False
+                else:
+                    extend = str(input("Please enter (y/n) if you would like to add an aditional facial feature: "))
+                    extendFlag = True
+
+            
         elif (len(message)==0):
             print("ERROR: The message is empty ")
             message = str(input("Please Enter a message again: "))
