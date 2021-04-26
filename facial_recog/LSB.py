@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageDraw
 import face_recognition
 from pathlib import Path
 ##from facial_recog.facial_features import expand_points
@@ -90,6 +90,12 @@ def encode(picture,imgPath,points_list,pixels_list,chosen_facial):
                     extendFlag = False
                     flag = False
 
+                    
+
+
+        
+                        
+
                     ##THINGS TO FINISH
                     ## BREAK FACIAL_FEATURES DO_FACIAL_FEATURES_RECOG INTO MULTIPLE FUNCTIONS
                     ## THIS WILL THEN ALLOW YOU TO RUN PIECES OF IT TO THEN GET THE POINTS OF THE NEXT FACIAL FEATURE
@@ -101,7 +107,7 @@ def encode(picture,imgPath,points_list,pixels_list,chosen_facial):
 
                     ##CODE expand pixel and then figure out how to find where the message ends
                 elif(extend == 'n'): 
-                    message = str(input("Please enter the message you wish to encode. "))
+                    message = str(input("Please enter the message you wish to encode: "))
                     extendFlag = False
                     flag = False
                 else:
@@ -152,4 +158,29 @@ def decode(picture, imgPath, points_list):
             return message
 
 
+#function that will take the message, and break it up into another string. 
+#message is the message
+#n is the length to cut at. 
+def split_message(message, n): 
+    for x in range(0, len(message), n): 
+        yield message[x:x+n]
+    
 
+def calculate_expanded_feature_points(img,path, decode = 0, facialFeature = None): 
+        image = face_recognition.load_image_file(path)
+        face_landmarks_list = face_recognition.face_landmarks(image)
+        face_location = face_recognition.face_locations(image)
+        pil_image = Image.fromarray(image)
+        d = ImageDraw.Draw(pil_image)
+        for face_landmarks in face_landmarks_list:
+            face_landmarks['mouth'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin']
+            face_landmarks['eyes'] = face_landmarks['left_eye'] + face_landmarks['right_eye'] + face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow']
+            face_landmarks['nose'] = face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
+            face_landmarks['face'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin'] + face_landmarks['left_eye'] + face_landmarks['right_eye'] + face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow'] + face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
+             
+            #cleaning up the leftover points
+            toRemove = ["bottom_lip","top_lip","chin","left_eye","right_eye","left_eyebrow","right_eyebrow","nose_bridge","nose_tip"]
+            for each in toRemove:
+                face_landmarks.pop(each)
+
+        points = face_landmarks[facialFeature] 

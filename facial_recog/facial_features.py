@@ -70,7 +70,7 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
             points = face_landmarks[facial_feature] 
             #this is to increase our points selections
             
-            expand_facial_points(points)
+            points = expand_facial_points(points)
             
             #Extracting pixel values
             pixels = pil_image.load()
@@ -111,3 +111,4 @@ def expand_facial_points(facial_points):
     #removing duplicates
     facial_points = list(dict.fromkeys(facial_points))
     print("This is len of points: ", len(facial_points)) #test
+    return facial_points
