@@ -82,7 +82,11 @@ def encode(picture,imgPath,points_list,pixels_list,chosen_facial):
             #extend facial feature
             while extendFlag: 
                 if (extend == 'y'): 
-                    extended_feature = str(input("Enter the facial feature that you want to extend for encoding (mouth, nose, eyes): ")).lower()
+                    extended_feature = None
+                    feature_list = ['eyes', 'mouth', 'nose']
+                    feature_list.remove(str(chosen_facial)) #remove the feature that has already been selected
+                    while extended_feature != feature_list[0] and extended_feature != feature_list[1]:
+                        extended_feature = str(input("Enter the facial feature that you want to extend for encoding ({}, {}): ".format(*feature_list))).lower()
                     extendFlag = False
                     flag = False
 
