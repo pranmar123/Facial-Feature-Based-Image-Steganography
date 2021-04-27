@@ -90,7 +90,7 @@ def encode(picture,imgPath,points_list,pixels_list,chosen_facial):
                     extendFlag = False
                     flag = False
 
-                    
+                    calculate_expanded_feature_points(picture, imgPath, 1, extended_feature)
 
 
         
@@ -183,4 +183,26 @@ def calculate_expanded_feature_points(img,path, decode = 0, facialFeature = None
             for each in toRemove:
                 face_landmarks.pop(each)
 
-        points = face_landmarks[facialFeature] 
+        points = face_landmarks[facialFeature]
+        i = 0
+        lengthOfPoints = len(points)
+            
+        while i < lengthOfPoints:
+            x, y = points[i][0], points[i][1]
+            #adding surrounding points to the total list of points (in diagonals)
+            for j in range(-10, 10):
+                points.append((x+j, y+j))
+            i+= 1
+        #removing duplicates
+        points = list(dict.fromkeys(points))
+        print(f"This is len of points: {len(points)}") #test        
+
+
+        pixels = pil_image.load()
+        pixel_list = []
+        for pair in points:
+            x,y = pair[0], pair[1]
+            pixel_list.append(pixels[x,y])
+        d.line(points, width=0) #test
+        pil_image.show() #test
+        return facialFeature,points,pixel_list
