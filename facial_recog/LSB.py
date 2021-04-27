@@ -63,9 +63,10 @@ def encode(picture,imgPath,points_list,pixels_list,chosen_facial):
     largeMessageFlag = True
     extendFlag=True
     pointsListOriginal = points_list
+    pixelListOriginal = pixels_list
     while flag:
         
-        extend = "temp" #instantiate out of scope variable
+        extend = None #instantiate out of scope variable
         if (len(message)> maxLen): #check if the message is too large to encode
             print("ERROR: The message length is greater than ", maxLen," bytes")
             while largeMessageFlag: #loop for error correction 
@@ -90,21 +91,12 @@ def encode(picture,imgPath,points_list,pixels_list,chosen_facial):
                     extendFlag = False
                     flag = False
 
-                    calculate_expanded_feature_points(picture, imgPath, 1, extended_feature)
-
-
-        
-                        
-
-                    ##THINGS TO FINISH
-                    ## BREAK FACIAL_FEATURES DO_FACIAL_FEATURES_RECOG INTO MULTIPLE FUNCTIONS
-                    ## THIS WILL THEN ALLOW YOU TO RUN PIECES OF IT TO THEN GET THE POINTS OF THE NEXT FACIAL FEATURE
-                    ## ONCE YOU HAVE THE POINTS YOU CAN APPEND THAT TO THE MASTER POINTS LIST AND THEN WRITE IT
-                    ## HAVE IT CHECK WHAT FACIAL FEATURE HAS BEEN SELECTED SO YOU DONT ENCODE THE MESSAGE INTO THE SAME FEATURE
-                    ## TO THE IMAGE. I THINK THAT SHOULD MAKE SENSE???
-
+                    expandedPointsList, expandedPixelsList = calculate_expanded_feature_points(picture, imgPath, extended_feature)
+                    #add both together for more message space.
+                    pixels_list = pixelListOriginal + expandedPixelsList
+                    points_list = pointsListOriginal + expandedPointsList
                     
-
+                    print(message)
                     ##CODE expand pixel and then figure out how to find where the message ends
                 elif(extend == 'n'): 
                     message = str(input("Please enter the message you wish to encode: "))
@@ -166,7 +158,7 @@ def split_message(message, n):
         yield message[x:x+n]
     
 
-def calculate_expanded_feature_points(img,path, decode = 0, facialFeature = None): 
+def calculate_expanded_feature_points(img,path, facialFeature = None): 
         image = face_recognition.load_image_file(path)
         face_landmarks_list = face_recognition.face_landmarks(image)
         face_location = face_recognition.face_locations(image)
@@ -176,8 +168,6 @@ def calculate_expanded_feature_points(img,path, decode = 0, facialFeature = None
             face_landmarks['mouth'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin']
             face_landmarks['eyes'] = face_landmarks['left_eye'] + face_landmarks['right_eye'] + face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow']
             face_landmarks['nose'] = face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
-            face_landmarks['face'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin'] + face_landmarks['left_eye'] + face_landmarks['right_eye'] + face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow'] + face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
-             
             #cleaning up the leftover points
             toRemove = ["bottom_lip","top_lip","chin","left_eye","right_eye","left_eyebrow","right_eyebrow","nose_bridge","nose_tip"]
             for each in toRemove:
@@ -205,4 +195,4 @@ def calculate_expanded_feature_points(img,path, decode = 0, facialFeature = None
             pixel_list.append(pixels[x,y])
         d.line(points, width=0) #test
         pil_image.show() #test
-        return facialFeature,points,pixel_list
+        return points,pixel_list
