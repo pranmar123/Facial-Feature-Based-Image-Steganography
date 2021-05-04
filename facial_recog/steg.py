@@ -26,10 +26,10 @@ def main():
 
 def menuEncode():
     picture, imgPath = facial_features.select_image() #select_image() function is called
-    chosenFeature, pointsList, pixelsList = facial_features.do_facial_feature_recog(picture, imgPath) #do_facial_feature_recog() function
+    chosenFeature, pointsList, pixelsList, fullFacePoints = facial_features.do_facial_feature_recog(picture, imgPath) #do_facial_feature_recog() function
     print("The important information: \n Picture chosen: {} \n Chosen feature: {} ".format(picture, chosenFeature))
     try:
-        LSB.encode(picture,imgPath,pointsList,pixelsList, chosenFeature)
+        LSB.encode(picture,imgPath,pointsList,pixelsList, chosenFeature, fullFacePoints)
     except ValueError:
         print("Function menuEncode(): There was an error while trying to encode a message.")
    
@@ -63,16 +63,16 @@ def menuDecode():
     if(howManyFeatures == "1"):
         #if one feature
         facialFeature = str(input("Enter the facial feature (eyes, mouth, nose, face): ")).lower()
-        while facialFeature != 'nose' and facialFeature != 'mouth' and facialFeature != 'eyes' and facialFeature != 'face': 
+        while facialFeature != 'nose' and facialFeature != 'mouth' and facialFeature != 'eyes' and facialFeature != 'face': #check for correct input
             facialFeature = str(input("Please enter a correct facial feature (eyes, mouth, nose, face): ")).lower()
     else: 
         #if two features
         facialFeature1 = str(input("Enter the first facial feature (eyes, mouth, nose): ")).lower()
-        while facialFeature1 != 'nose' and facialFeature1 != 'mouth' and facialFeature1 != 'eyes':
+        while facialFeature1 != 'nose' and facialFeature1 != 'mouth' and facialFeature1 != 'eyes': #check for correct input
             facialFeature1 = str(input("Please enter a correct facial feature (eyes, mouth, nose): ")).lower()
         facialFeaturesList.remove(facialFeature1) #remove from list, to show user which options remain.
         facialFeature2 = str(input("Enter the second facial feature ({}, {}): ".format(*facialFeaturesList)))
-        while facialFeature2 != facialFeaturesList[0] and facialFeature2 != facialFeaturesList[1]: 
+        while facialFeature2 != facialFeaturesList[0] and facialFeature2 != facialFeaturesList[1]: #check for correct input
             facialFeature2 = str(input("Please enter a correct secondary facial feature ({}, {}): ".formar(*facialFeaturesList))).lower()
 
     pointsList = []
@@ -80,10 +80,10 @@ def menuDecode():
     
     toGetPoints = str(script_location) +"/original_dataset/" + picture
     if howManyFeatures == "1": 
-        xx, pointsList, pixel_list = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature)
+        xx, pointsList, pixel_list, faceLength = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature)
     else: 
-        zzz, pointsListFeature1, xxx = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature1)
-        zzzz, pointsListFeature2, xxxx = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature2)
+        xx, pointsListFeature1, xxx, faceLength  = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature1)
+        zzzz, pointsListFeature2, xxxx, faceLength = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature2)
         pointsList = pointsListFeature1 + pointsListFeature2
     #pointsList = pointsList[1]
     try:

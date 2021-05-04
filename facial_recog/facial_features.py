@@ -51,7 +51,7 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
             face_landmarks['mouth'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin']
             face_landmarks['eyes'] = face_landmarks['left_eye'] + face_landmarks['right_eye'] + face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow']
             face_landmarks['nose'] = face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
-            face_landmarks['face'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin'] + face_landmarks['left_eye'] + face_landmarks['right_eye'] + face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow'] + face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
+            face_landmarks['face'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin'] + face_landmarks['left_eye'] + face_landmarks['right_eye']+ face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow'] + face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
              
             #cleaning up the leftover points
             toRemove = ["bottom_lip","top_lip","chin","left_eye","right_eye","left_eyebrow","right_eyebrow","nose_bridge","nose_tip"]
@@ -68,7 +68,9 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
                     
 
             points = face_landmarks[facial_feature]
+            fullFacePoints = face_landmarks["face"]
             i = 0
+            lengthPointsFace = len(fullFacePoints)
             lengthOfPoints = len(points)
             
             while i < lengthOfPoints:
@@ -77,7 +79,14 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
                 for j in range(-10, 10):
                     points.append((x+j, y+j))
                 i+= 1
+            i = 0
+            while i < lengthPointsFace: 
+                x, y = fullFacePoints[i][0], fullFacePoints[i][1]
+                for j in range(-10, 10): 
+                    fullFacePoints.append((x+j, y+j))
+                i += 1
             #removing duplicates
+            fullFacePoints = list(dict.fromkeys(fullFacePoints))
             points = list(dict.fromkeys(points))
             print(f"This is len of points: {len(points)}") #test
 
@@ -91,4 +100,4 @@ def do_facial_feature_recog(img,path, decode = 0, facialFeature = None):
                 pixel_list.append(pixels[x,y])
         d.line(points, width=0) #test
         pil_image.show() #test
-        return facial_feature,points,pixel_list
+        return facial_feature,points,pixel_list,fullFacePoints

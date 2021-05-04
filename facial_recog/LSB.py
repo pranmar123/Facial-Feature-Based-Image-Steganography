@@ -46,17 +46,24 @@ def modifyPixels(pixels, pixels_list, data):
 
 def encodeMessage(newImage, message, points_list,pixels_list):
     counter = 0
-    for pixel in modifyPixels(newImage.getdata(), pixels_list, message):
-        #putting the modified pixels in the new image
-        x,y = points_list[counter]
-        counter+=1
-        newImage.putpixel((x,y), pixel)
+    try: 
+        for pixel in modifyPixels(newImage.getdata(), pixels_list, message):
+            #putting the modified pixels in the new image
+            x,y = points_list[counter]
+            counter+=1
+            newImage.putpixel((x,y), pixel)
+    except StopIteration: 
+        print("StopIteration encodeMessage()")
+
+        
 
 
-def encode(picture,imgPath,points_list,pixels_list,chosen_facial):
+def encode(picture,imgPath,points_list,pixels_list,chosen_facial, full_face):
     image = Image.open(imgPath,'r')
-    maxLen = len(points_list) // 3
-    print("This is the maximum number of bytes that can be encoded: ", maxLen)
+    maxSingleFeature = len(points_list) // 3
+    absoluteMaxSize = len(full_face) // 3
+
+    print("This is the maximum number of bytes that can be encoded: ", maxSingleFeature)
     message = str(input("Enter the message you wish to encode: "))
 
     flag=True
@@ -67,13 +74,13 @@ def encode(picture,imgPath,points_list,pixels_list,chosen_facial):
     while flag:
         
         extend = None #instantiate out of scope variable
-        if (len(message)> maxLen): #check if the message is too large to encode
-            print("ERROR: The message length is greater than ", maxLen," bytes")
+        if (len(message)> maxSingleFeature): #check if the message is too large to encode
+            print("ERROR: The message length is greater than ", maxSingleFeature," bytes")
             while largeMessageFlag: #loop for error correction 
                 if(chosen_facial == 'face'): #if the 'face' feature is selected there are no additonal features to pick. 
                     print("ERROR: The message as typed is too large. There are no aditional features to encode to.")
                     message = str(input("Please enter a smaller message: ")) #give the option to encode a smaller message, loop if large again
-                    if(len(message) < maxLen): #If the message is less than max byte length, message is good to encode, close flags
+                    if(len(message) < maxSingleFeature): #If the message is less than max byte length, message is good to encode, close flags
                         largeMessageFlag = False
                         extendFlag = False
                 elif extendFlag == True: #Check if 
@@ -90,14 +97,16 @@ def encode(picture,imgPath,points_list,pixels_list,chosen_facial):
                         extended_feature = str(input("Enter the facial feature that you want to extend for encoding ({}, {}): ".format(*feature_list))).lower()
                     extendFlag = False
                     flag = False
-
-                    expandedPointsList, expandedPixelsList = calculate_expanded_feature_points(picture, imgPath, extended_feature)
-                    #add both together for more message space.
-                    pixels_list = pixelListOriginal + expandedPixelsList
-                    points_list = pointsListOriginal + expandedPointsList
+                    if(len(message) > absoluteMaxSize): 
+                        print("Error: The message is still too large. Exiting.")
+                        break
+                    else: 
+                        expandedPointsList, expandedPixelsList = calculate_expanded_feature_points(picture, imgPath, extended_feature)
+                        #add both together for more message space.
+                        pixels_list = pixelListOriginal + expandedPixelsList
+                        points_list = pointsListOriginal + expandedPointsList
                     
-                    print(message)
-                    ##CODE expand pixel and then figure out how to find where the message ends
+                    
                 elif(extend == 'n'): 
                     message = str(input("Please enter the message you wish to encode: "))
                     extendFlag = False
@@ -167,11 +176,11 @@ def calculate_expanded_feature_points(img,path, facialFeature = None):
             face_landmarks['mouth'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin']
             face_landmarks['eyes'] = face_landmarks['left_eye'] + face_landmarks['right_eye'] + face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow']
             face_landmarks['nose'] = face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
+            face_landmarks['face'] = face_landmarks['bottom_lip'] + face_landmarks['top_lip'] + face_landmarks['chin'] + face_landmarks['left_eye'] + face_landmarks['right_eye']+ face_landmarks['left_eyebrow'] + face_landmarks['right_eyebrow'] + face_landmarks['nose_bridge'] + face_landmarks['nose_tip']
             #cleaning up the leftover points
             toRemove = ["bottom_lip","top_lip","chin","left_eye","right_eye","left_eyebrow","right_eyebrow","nose_bridge","nose_tip"]
             for each in toRemove:
                 face_landmarks.pop(each)
-
         points = face_landmarks[facialFeature]
         i = 0
         lengthOfPoints = len(points)
@@ -182,6 +191,7 @@ def calculate_expanded_feature_points(img,path, facialFeature = None):
             for j in range(-10, 10):
                 points.append((x+j, y+j))
             i+= 1
+
         #removing duplicates
         points = list(dict.fromkeys(points))
         print(f"This is len of points: {len(points)}") #test        
@@ -195,3 +205,8 @@ def calculate_expanded_feature_points(img,path, facialFeature = None):
         d.line(points, width=0) #test
         pil_image.show() #test
         return points,pixel_list
+
+
+
+
+
