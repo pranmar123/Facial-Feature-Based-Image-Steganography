@@ -59,7 +59,7 @@ def menuDecode():
     while howManyFeatures != '1' and howManyFeatures != '2': 
         howManyFeatures = str(input("Error: How many facial features to be decoded? (1 or 2): "))
     print("This is the current path: ", os.getcwd())
-    #imgPath = str(input("Enter the path to the image: "))
+
     if(howManyFeatures == "1"):
         #if one feature
         facialFeature = str(input("Enter the facial feature (eyes, mouth, nose, face): ")).lower()
@@ -85,7 +85,7 @@ def menuDecode():
         xx, pointsListFeature1, xxx, faceLength  = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature1)
         zzzz, pointsListFeature2, xxxx, faceLength = facial_features.do_facial_feature_recog(picture, toGetPoints, 1, facialFeature2)
         pointsList = pointsListFeature1 + pointsListFeature2
-    #pointsList = pointsList[1]
+
     try:
         print("Decoded: {}".format(LSB.decode(picture,imgPath, pointsList)))
         #shutil will copy the original file and replace the encoded image with the original copy of the image
