@@ -118,7 +118,6 @@ def encode(picture,imgPath,points_list,pixels_list,chosen_facial):
     encodeMessage(newImage, message, points_list, pixels_list)
     print("The message Encoded successfully")
 
-    #newImage.save("/home/pranmar123/Multi-Facial-Steganography/facial_recog/dataset/"+picture)
     script_location = Path(__file__).absolute().parent
     newImage.save(str(script_location) + "/dataset/" + picture)
 
