@@ -31,7 +31,7 @@ def menuEncode():
     try:
         LSB.encode(picture,imgPath,pointsList,pixelsList, chosenFeature)
     except ValueError:
-        print("Function menuEncode(): There was an error while ")
+        print("Function menuEncode(): There was an error while trying to encode a message.")
    
 
  
