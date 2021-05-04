@@ -14,13 +14,11 @@ def select_image():
     path = str(script_location) +"/dataset"
     
     pictures_list = os.listdir(path)
-    #randomly selecting a element from our picture list to perform facial feature recognition 
     picture = str(input("Enter the name of the file you want to use for encoding: "))
-    #picture = '1.png' #test
     flag=True
     os.chdir(path)
     img_path = path+"/"+picture
-    #print(os.path.isfile(img_path))
+ 
  
     if os.path.isfile(img_path)==False:
         while flag:
