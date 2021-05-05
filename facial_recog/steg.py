@@ -51,7 +51,7 @@ def menuDecode():
     facialFeaturesList = ['nose', 'eyes', 'mouth']
     if os.path.isfile(imgPath)==False:
         while flag:
-            picture = str(input("This image doesn't exist, please Enter a correct image name: "))
+            picture = str(input("This image doesn't exist, please enter a correct image name: "))
             imgPath = str(script_location) +"/dataset/" + picture
             if os.path.isfile(imgPath)==True:
                 flag=False
